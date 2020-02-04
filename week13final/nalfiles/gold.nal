@@ -1,0 +1,29 @@
+{
+    PRINT ""
+    IFEQUAL ( %CROSS , 0 ) {
+        PRINT $GOLD
+    }
+
+    IFEQUAL ( %CROSS , 1 ) {
+        PRINT $GOLDEMPTY
+    }
+
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+
+    IFEQUAL ( $VA , "LOOK" ) {
+        IFEQUAL ( $VB , "PROGRAM" ) {
+            FILE "number.nal"
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "SPACE" ) {
+            FILE "space.nal"
+        }
+        PRINT $CANTGO
+        JUMP 23
+    }
+
+    JUMP 23
+}

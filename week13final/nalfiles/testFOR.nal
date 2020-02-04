@@ -1,0 +1,18 @@
+{
+    %C = 1
+    FOR ( %C ) TO 10 {
+        PRINT %C
+        JUMP 4
+    }
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    FOR ( %C ) T 10
+    FOR ( %C ) 10
+
+    FOR ( $A ) TO 10
+    FOR ( 10 ) TO 10
+    FOR ( "HELLO" ) TO 10
+
+    FOR %C ) TO 10
+    FOR ( %C TO 10

@@ -1,0 +1,39 @@
+
+         cc                  cc
+        cccc                cccc
+       cc  cc              cc  cc
+      cc    cc            cc    cc
+     cc      cc          cc      cc
+    cc        cc        cc        cc
+   cc          cc      cc          cc
+  cc            cc    cc            cc
+ cc              cc  cc              cc
+tH                cccc                Ht
+
+      ccc                       cHt
+       ccc                     ccc
+          ccc               ccc
+             ccc         ccc
+                ccc   ccc
+                  ccccc
+                ccc   ccc
+             ccc         ccc
+          ccc               ccc
+       ccc                     ccc
+    ccc                           ccc
+   tHc                             ccc
+
+
+    ccc                           Htc
+       ccc                     ccc
+          ccc               ccc
+             ccc         ccc
+                ccc   ccc
+                   ccc
+                   c c
+                   c c
+                   c c
+                   c c
+                   c c
+                   H c
+                   tcc

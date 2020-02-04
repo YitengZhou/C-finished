@@ -1,0 +1,14 @@
+{
+    %N = 0
+    INC ( %N )
+    PRINT %N
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    INC ( "LOVE" )
+    INC ( #LOVE# )
+    INC ( 12.11 )
+    INC ( $COMPUTER )
+
+    INC %COMPUTER )
+    INC ( %COMPUTER 

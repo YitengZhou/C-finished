@@ -1,0 +1,87 @@
+1、当ifequal没有 } 时，会有错误提示，但是提示的错误类型和实际不一致。
+   例如 .nal文件为：
+
+   IFEQUAL ( $A , #Arvyy# ) {
+      PRINT #Uryyb Jbeyq!#
+
+   提示为：Invalid instruction
+
+2、PRINT函数结束判断用出现关键字或者特殊符号实现，若想打印关键字则出现问题？× —— 将有效的
+   换行符保存，根据直到出现换行符也没有 “ 或者 # 判断错误；
+
+3、由于 instruct 中除了 set 外都有关键字，所以将不符合关键字的语句都视为 set，但是这样
+   在关键字出现错误时没有办法给出正确的提示。——解决方法：除了关键字外，以 $ 或者 % 开头的
+   视为set，其他的都视为非法指令。
+
+5、segmentation fault: 11 —— 运行其他均无问题，当运行到labse.nal时出现该错误提醒；
+   经过查找，发现是文件读入函数 readIn 有问题，在特殊符号的时候没有及时的将空间扩大，导致
+   没有足够的空间存储内容；
+
+6、将引号内的字符串连接到一个字符串中返回时，记得要将增加的 p—>cur 恢复至原来的大小，
+   方便后续程序运行；
+
+7、在 INC INNUM IN2STR SET 等函数设置变量的值时，若变量已经有值了，则需要先将原来的值删去，
+   再插入新的值；——运行test6.nal时发现的；
+
+8、在运行test6.nal时总出现错误：
+interp(3316,0x10cfca5c0) malloc: Incorrect checksum for freed object 0x7f9c49600190:
+probably modified after being freed.
+Corrupt value: 0x4000000000000073
+interp(3316,0x10cfca5c0) malloc: *** set a breakpoint in malloc_error_break to debug
+Abort trap: 6
+谷歌搜索是重复free了函数，或者是数组溢出，检查了所有解析的子函数，发现均没有问题，
+将test6.nal修改后保留不同的东西均会有这个问题，故考虑是否依旧是读取文件出了问题。
+
+9、没办法和neill说话，发生是 IF 的嵌套出了问题 ——
+
+10、考虑用栈或者队列来记录{}的数量
+
+11、最开始输入数据是用的 %lf，需要将浮点型数据转换为字符串再存入全局数据列表，后改为 %s 输入，
+    再判断输入的是否为数字即可；
+
+13、将“”和##内的读到一个字符串中，不用后面的判断了;
+
+14、在se时，若输入steal carl，会出错；
+
+15、SET部分：
+$A = #ABC#
+$B = $A
+$C = $B
+PRINT $C
+这种嵌套会报错，老师给的测试没有这种情况，但实际应该处理，将SET部分的子函数setInsert中增加
+相应的内容改正改问题；
+
+16、INNUM部分：
+如果输入不是数字，依旧会存入，不会提示输入的不是数字，导致后来使用的时候出错；
+例如test6.nal:
+I'm thinking of a number (0-99).\nCan you guess it?
+Type in your guess
+50
+
+Too Big ! Try again ...
+Type in your guess
+sd
+Too Small ! Try again ...
+Type in your guess
+Too Small ! Try again ...
+Type in your guess
+Too Small ! Try again ...
+Type in your guess
+Too Small ! Try again ...
+Type in your guess
+Too Small ! Try again ...
+Type in your guess
+Too Small ! Try again ...
+Type in your guess
+Too many tries :-(
+在inputAndInsert函数中增加对输入数字的判断，若输入的不是数字，则提示输入错误，重新输入:
+do {
+   repeat = 0;
+   scanf("%s", input_str);
+    for (i = 0; i < (int)strlen(input_str); i++) {
+      if (input_str[i] < '0' || input_str[i] > '9') {
+          repeat = 1;
+      }
+    }
+   fprintf(stdout, "please input a number:\n");
+} while (repeat != 0);

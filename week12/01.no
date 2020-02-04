@@ -1,0 +1,11 @@
+BEGIN
+    ONE 
+    ONE 
+    NOUGHT
+    NOUGHT 
+    ONE 
+    ONE 
+    ONE 
+    TWO 
+    ONE 
+END

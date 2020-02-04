@@ -1,0 +1,86 @@
+{
+    PRINTN $C
+
+    IFEQUAL ( %USECROSS , 0 ) {
+        PRINT $CNEW
+    }
+
+    IFEQUAL ( %USECROSS , 1 ) {
+        PRINT $CRE
+    }
+
+    IFEQUAL ( %SWORD , 0 ) {
+        PRINTN $LACK
+        PRINT "SWORD."
+        FILE "space.nal"
+    }
+
+    IFEQUAL ( %SHEID , 0 ) {
+        PRINTN $LACK
+        PRINT "SHEID."
+        FILE "space.nal"
+    }
+
+    IFEQUAL ( %ARMOR , 0 ) {
+        PRINTN $LACK
+        PRINT "ARMOR."
+        FILE "space.nal"
+    }
+
+    IFEQUAL ( %CROSS , 0 ) {
+        PRINTN $LACK
+        PRINT "CROSS."
+        FILE "space.nal"
+    }
+
+    PRINT ""
+    PRINT $STARTFIGHT
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+
+    IFEQUAL ( $VA , "USE" ) {
+        IFEQUAL ( $B , "SHEID" ) {
+            %SHEID = 0
+            PRINT $USESHEID
+            JUMP 126
+        }
+    }
+
+    IFEQUAL ( %SHEID , 1 ) {
+        PRINT $WRONGITEM
+        FILE "space.nal"
+    }
+
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+
+    %SHEID = 1
+    IFEQUAL ( $VA , "USE" ) {
+        IFEQUAL ( $B , "SWORD" ) {
+            INC ( %HITDRAGEN )
+            IFEQUAL ( %HITDRAGEN , 1 ) {
+                PRINT ""
+                PRINT $HIT1
+            }
+            IFEQUAL ( %HITDRAGEN , 2 ) {
+                PRINT ""
+                PRINT $HIT2
+                PRINT $WARNING
+                %USECROSS = 1
+                FILE "space.nal"
+            }
+            IFEQUAL ( %HITDRAGEN , 3 ) {
+                PRINT ""
+                PRINT $FINISH
+                PRINT ""
+                FILE "dragonmax.nal"
+            }
+            JUMP 126
+        }
+    }
+
+    IFGREATER ( 3 , %HITDRAGEN ) {
+        PRINT $WRONGITEM
+        FILE "space.nal"
+    }
+}

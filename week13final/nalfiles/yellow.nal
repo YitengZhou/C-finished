@@ -1,0 +1,39 @@
+{
+    PRINT ""
+    IFEQUAL ( %ARMOR , 0 ) {
+        PRINT $YELLOW
+    }
+
+    IFEQUAL ( %ARMOR , 1 ) {
+        PRINT $YELLOWEMPTY
+    }
+
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+
+    IFEQUAL ( $VA , "ACTION" ) {
+        IFEQUAL ( $VB , "144" ) {
+            %SOLDIERNEED = 1
+            %ARMOR = 1
+            PRINT $FINISHYELLOW
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "SPACE" ) {
+            FILE "space.nal"
+        }
+        PRINT $CANTGO
+        JUMP 23
+    }
+
+    IFEQUAL ( $VA , "LOOK" ) {
+        IFEQUAL ( $VB , "TABLE" ) {
+            PRINT ""
+            PRINT $TABLE
+            FILE "FIBON.nal"
+        }
+    }
+
+    JUMP 23
+}

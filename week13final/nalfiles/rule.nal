@@ -1,0 +1,136 @@
+{
+    $VA = "NONE"
+    $VB = "NONE"
+
+    IFEQUAL ( $A , "MOVE" ) {
+        $VA = "MOVE"
+    }
+    
+    IFEQUAL ( $A , "WALK" ) {
+        $VA = "MOVE"
+    }
+    IFEQUAL ( $A , "RUN" ) {
+        $VA = "MOVE"
+    }
+    IFEQUAL ( $A , "GO" ) {
+        $VA = "MOVE"
+    }
+    IFEQUAL ( $A , "BACK" ) {
+        $VA = "MOVE"
+    }
+
+    IFEQUAL ( $A , "TOUCH" ) {
+        $VA = "ACTION"
+    }
+    IFEQUAL ( $A , "OPEN" ) {
+        $VA = "ACTION"
+    }
+    IFEQUAL ( $A , "PRESS" ) {
+        $VA = "ACTION"
+    }
+    IFEQUAL ( $A , "GET" ) {
+        $VA = "ACTION"
+    }
+
+    IFEQUAL ( $A , "USE" ) {
+        $VA = "USE"
+    }
+    IFEQUAL ( $A , "FIGHT" ) {
+        $VA = "USE"
+    }
+
+    IFEQUAL ( $A , "TALK" ) {
+        $VA = "TALK"
+    }
+    IFEQUAL ( $A , "CHAT" ) {
+        $VA = "TALK"
+    }
+    IFEQUAL ( $A , "SPEAK" ) {
+        $VA = "TALK"
+    }
+    IFEQUAL ( $A , "ASK" ) {
+        $VA = "TALK"
+    }
+
+    IFEQUAL ( $A , "LOOK" ) {
+        $VA = "LOOK"
+    }
+    IFEQUAL ( $A , "READ" ) {
+        $VA = "LOOK"
+    }
+    IFEQUAL ( $A , "INSPECT" ) {
+        $VA = "LOOK"
+    }
+
+    IFEQUAL ( $B , "SWORD" ) {
+        $VB = "SWORD"
+    }
+    IFEQUAL ( $B , "SHEID" ) {
+        $VB = "SHEID"
+    }
+    IFEQUAL ( $B , "CROSS" ) {
+        $VB = "CROSS"
+    }
+    IFEQUAL ( $B , "ARMOR" ) {
+        $VB = "ARMOR"
+    }
+
+    IFEQUAL ( $B , "PICTURE" ) {
+        $VB = "PICTURE"
+    }
+    IFEQUAL ( $B , "TABLE" ) {
+        $VB = "TABLE"
+    }
+    IFEQUAL ( $B , "PROGRAM" ) {
+        $VB = "PROGRAM"
+    }
+
+    IFEQUAL ( $B , "RED" ) {
+        $VB = "COMPASS"
+    }
+    IFEQUAL ( $B , "YELLOW" ) {
+        $VB = "COMPASS"
+    }
+    IFEQUAL ( $B , "BLUE" ) {
+        $VB = "COMPASS"
+    }
+    IFEQUAL ( $B , "GOLD" ) {
+        $VB = "COMPASS"
+    }
+    IFEQUAL ( $B , "CAVE" ) {
+        $VB = "COMPASS"
+    }
+    IFEQUAL ( $B , "SPACE" ) {
+        $VB = "COMPASS"
+    }
+
+    IFEQUAL ( $B , "SWORD" ) {
+        $VB = "KEY"
+    }
+    IFEQUAL ( $B , "SHEID" ) {
+        $VB = "KEY"
+    }
+    IFEQUAL ( $B , "ARMOR" ) {
+        $VB = "KEY"
+    }
+    IFEQUAL ( $B , "CROSS" ) {
+        $VB = "KEY"
+    }
+
+    IFEQUAL ( $B , "144" ) {
+        $VB = "144"
+    }
+    IFEQUAL ( $B , "SOLDIER" ) {
+        $VB = "SOLDIER"
+    }
+
+    IFEQUAL ( $VA , "NONE" ) {
+        PRINTN "I don't understand "
+        PRINT $A
+    }
+    IFEQUAL ( $VB , "NONE" ) {
+        PRINTN "What do you mean by "
+        PRINTN $B
+        PRINT "?"
+    }
+}

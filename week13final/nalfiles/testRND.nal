@@ -1,0 +1,13 @@
+{
+    RND ( %N )
+    PRINT %N
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    RND ( "LOVE" )
+    RND ( #LOVE# )
+    RND ( 12.11 )
+    RND ( $COMPUTER )
+
+    RND %COMPUTER )
+    RND ( %COMPUTER 

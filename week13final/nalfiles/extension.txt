@@ -1,0 +1,70 @@
+At first, I find two bugs in escape211.nal game:
+1. In file <escape211.nal>
+    Line 21 should be $SECHEKNOTCHATTY, rather than $SWCHEKNOTCHATTY because there are 
+    two $SWCHEKNOTCHATTY and it should be happened when you in the room SE after (TOUCH/STEAL BIKE).
+2. In file <labsw.nal>
+    Between lines 40-43 should add some codes IFEQUAL ( $WHERECHEK , "SW" ){} as following:
+    IFEQUAL ( $VA , "TALK" ) {
+        IFEQUAL ( $VB , "CARL" ) {
+            IFEQUAL ( $WHERECHEK , "SW" ) {
+                PRINT $SWCHEKNOTCHATTY
+                JUMP 23
+            }
+        }
+    }
+    If not, you can talk to Carl even he is not in that room.
+
+Also, I build two new grammar FOR (loop like c) and ADD (addition) to finish Fibonacci sequence,
+      and then redesign a new escape game, named DRAGON (dragonmax.nal),
+      which needs to get different items to fight with dragon and also needs those two grammars.
+This game include 6 room and 4 essential items to complete game, including 9 files
+(space.nal, cave.nal, red.nal, yellow.nal, blue.nal, gold.nal, number.nal, FIBON.nal and rule.nal).
+# make -f nal.mk extension will creat (extension) and then ./extension dragonmax.nal #
+# I hope you can relax in this small text game #
+
+I write fastest strategy in following:
+get armor and sword : GO RED-> TALK SOLDIER-> BACK SPACE-> GO YELLOW-> LOOK TABLE
+-> PRESS 144-> BACK SPACE-> GO RED-> TALK SOLDIER-> BACK SPACE
+get shied : GO BLUE-> LOOK PICTURE-> LOOK PICTURE-> LOOK PICTURE-> BACK SPACE
+get cross : GO GOLD-> LOOK PROGRAM-> guess number -> BACK SPACE
+fight with dragon : GO CAVE-> USE SHEID-> USE SWORD-> USE SWORD-> GO CAVE-> USE SHEID ->USE SWORD
+
+even I make some cheat code to quickly get different items:
+GET ARMOR, GET SWORD, GET SHEID, GET CROSS
+
+Finally, I supplement the test for new grammar FOR and ADD here. I also associate this grammar to 
+the assembly language as ARM. Such as COPY, MOVE, SUB, MUL, DIV grammar, we can write and function
+for those grammars. I’m very clear to the interpreter, grammar and compiler from this assessment.
+
+Thank you for such perfect courses and projects!
+
+
+SUPPLEMENT (./extension testFOR.nal/testADD.nal)
+"testFOR.nal"
+test "FOR" (NUMVAR) "TO" NUMCON { } OK
+    e.g. FOR ( %A ) TO 10 - "FOR" (NUMVAR) "TO" NUMCON
+
+test FOR (NUMVAR) NUMCON will show wrong grammar:
+    -Fatal Error Expected a TO in FOR grammar ? occured in nal.c, line 920
+    e.g. FOR ( %C ) T 10  - wrong TO
+         FOR ( %C ) 10    - without T0
+
+    -Fatal Error Expected a NUMVAR in FOR grammar ? occured in nal.c, line 924
+    e.g. FOR ( $A ) TO 10
+         FOR ( 10 ) TO 10
+         FOR ( "HELLO" ) TO 10
+
+    -Fatal Error Expecting a pair of braces ( NUMVAR ) in FOR grammar ? occured in nal.c, line 928
+    e.g. FOR %C ) TO 10
+         FOR ( %C TO 10
+
+"testADD.nal"
+test ADD NUMVAR NUMVAR NUMVAR OK
+    e.g. ADD %A %B %C - A = B + C
+
+"FIBON.nal"
+print fibonacci sequence use ADD and FOR grammar
+interpreter Show:
+Fibonacci sequence
+1-1-2-3-5-8-13-21-34-55-89-144-233-377-610-987-1597-2584-4181-6765-10946-17711-...
+

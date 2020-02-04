@@ -1,0 +1,13 @@
+{
+    INNUM ( %COMPUTER )
+    PRINT %COMPUTER
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    INNUM ( "LOVE" )
+    INNUM ( #LOVE# )
+    INNUM ( 12.11 )
+    INNUM ( $COMPUTER )
+
+    INNUM %COMPUTER )
+    INNUM ( %COMPUTER 

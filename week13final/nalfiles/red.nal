@@ -1,0 +1,30 @@
+{
+    PRINT ""
+    PRINT $RED
+
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+    
+    IFEQUAL ( $VA , "TALK" ) {
+        IFEQUAL ( $VB , "SOLDIER" ) {
+            IFEQUAL ( %SOLDIERNEED , 0 ) {
+                PRINT $SOLDIER
+                JUMP 5
+            }
+            IFEQUAL ( %SOLDIERNEED , 1 ) {
+                PRINT $FINISHRED
+                %SWORD = 1
+            }
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "SPACE" ) {
+            FILE "space.nal"
+        }
+        PRINT $CANTGO
+        JUMP 5
+    }
+
+    JUMP 5
+}

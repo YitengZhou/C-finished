@@ -1,0 +1,13 @@
+{
+    $A = "test1.nal"
+    %B = 10
+    FILE "test1.nal"
+    FILE #grfg6.any#
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    FILE $A
+    FILE %B
+    FILE 10
+    FILE @!
+    FILE }

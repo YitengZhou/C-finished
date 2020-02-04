@@ -1,0 +1,62 @@
+{
+    $S = "You are in the middle of space, there are four gates in the North (red, yellow, blue and gold). "
+    $CAVESTATE0 = "In the South, there is a mysterious cave. "
+    $CAVESTATE1 = "You still remember the fight a few minutes ago, thanks to the rebirth of the cross. Maybe it's a good time to defeat the dragon while it is weak"
+
+    $RED = "In red room, you see a soldier holding two sharp swords tightly, maybe you can talk to him."
+    $FINISHRED = "Thank you! This medical kit is what I really need. I give you a sharp sword to help you in different case!"
+    $SOLDIER = "Hi, why you here? This is not where you can stay. And do you have a medical kit because I’m injured."
+    $CANTGO = "You can't go there, you can only back to the space (BACK SPACE)"
+
+    $YELLOW = "In yellow room, you saw a table and a cabinet with a medical kit and an armor but a 3-digit combination lock. Maybe I need to look at what on the table"
+    $YELLOWEMPTY = "In yellow room, the cabinets are all empty."
+    $TABLE = "Fibonacci sequence"
+    $FINISHYELLOW = "You got armor and medical kit ! "
+
+    $BLUE = "In blue room, there is only a picture on the wall. Maybe I need to look at it."
+    $BLUEMPTY = "In blue room, the empty seat of the shield remains on the wall."
+    $PICTURE1 = "The picture says - do nothing by halves -"
+    $PICTURE2 = "The picture says - do nothing by halves -...there are something else behind the picture, you opened the picture."
+    $FINISHBLUE = "You got sheid!"
+
+    $GOLD = "In gold room, the decoration in the room is very sacred. You cansee a small program in this room."
+    $GOLDEMPTY = "In sacred gold room, everything is empty."
+    $FINISHGOLD = "Congratulations, you guessed my number. I promise you a cross. This cross can save you at a critical moment."
+
+    $C = "You see mountain-like treasures after a huge dragen in this cave. "
+    $CNEW = "This dragon looks like be sleeping. Although you are very carefully and quietly perparing to take those gold, this dragon still wake. The dragon wants to pour all anger on you."
+    $CRE = "You see the dragon again. And This dragon still anger at you and want to tear you."
+
+    $STARTFIGHT = "Please enter item to fight the dragon. e.g. USE SWORD/SHEID"
+    $USESHEID = "You use sheid to avoid deadly strike from dragon's tail. I believe it's time to fight dragon with sword."
+    $WRONGITEM = "You are stunned by the dragon and back to the spcae cave because of the wrong item."
+    $LACK = "You are killed by dragon because you lack a "
+    $HIT1 = "You stabbed the dragon once and then it becomes more irrtable. The dragon's tail hits you and shatters your armor."
+    $HIT2 = "You stabbed the dragon twice and then it goes totally crazy"
+    $WARNING = "!!! Warning !!! The dragon exhausted all its strength and spit fire from its mouth to surround you. You are almost dead but the cross of rebirth takes you back to the place where you first tried."
+
+    $FINISH = "After a drastic battle you defeated the dragon and got a lot of money. Congratulations ! When you want to touch those money, you are awakened by loud keyboard sounds. It's just a dream, you still in the MVB lab 3.14. You put programming aside and want relax again."
+
+    PRINT ""
+    PRINT "Welcome to this adventure game <dragen>"
+    PRINT "####.....####.......#.......#####....####....#.....#"
+    PRINT "#...#....#...#.....#.#.....#........#....#...#.#...#"
+    PRINT "#....#...####.....#####....#...###..#....#...#..#..#"
+    PRINT "#...#....#.##....#.....#...#....#...#....#...#...#.#"
+    PRINT "####.....#...##.#.......#...#####....####....#....##"
+    PRINT "Try typing things like :"
+    PRINT "MOVE CAVE"
+    PRINT "OPEN TREASURE"
+    PRINT ""
+
+    %SWORD = 0
+    %SHEID = 0
+    %ARMOR = 0
+    %CROSS = 0
+    %USECROSS = 0
+    %HITDRAGEN = 0
+    %SOLDIERNEED = 0
+    %LOOKPICTURE = 0
+
+    FILE "space.nal"
+}

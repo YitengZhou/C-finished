@@ -1,0 +1,39 @@
+{
+    $STRVAR = "LOVE COMPUTER"
+    %NUMVAR = 100
+
+    $HELLO = $STRVAR
+    PRINT $HELLO
+    $HELLO = %NUMVAR
+    PRINT $HELLO
+    $HELLO = "LOVE"
+    PRINT $HELLO
+    $HELLO = #LOVE#
+    PRINT $HELLO
+    $HELLO = 12.11
+    PRINT $HELLO
+    %WORLD = $STRVAR
+    PRINT %WORLD
+    %WORLD = %NUMVAR
+    PRINT %WORLD
+    %WORLD = "LOVE"
+    PRINT %WORLD
+    %WORLD = #LOVE#
+    PRINT %WORLD
+    %WORLD = 12.11
+    PRINT %WORLD
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    "LOVE" = $STRVAR
+    "LOVE" = %NUMVAR
+    "LOVE" = "LOVE"
+    "LOVE" = #LOVE#
+    "LOVE" = 12.11
+    12.11 = $STRVAR
+    12.11 = %NUMVAR
+    12.11 = "LOVE"
+    12.11 = #LOVE#
+    12.11 = 12.11
+
+    $HELLO $STRVAR

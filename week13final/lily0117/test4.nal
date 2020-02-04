@@ -1,0 +1,14 @@
+{
+
+   PRINT "In test4, before"
+   FILE "test1.nal"
+   PRINT "In test4, after"
+   %C = 0
+   INC ( %C )
+   PRINT %C
+   INC ( %C )
+   PRINT %C
+   RND ( %A )
+   PRINT %A
+
+}

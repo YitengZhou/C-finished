@@ -1,0 +1,64 @@
+{
+    PRINT ""
+    PRINTN $S
+    IFEQUAL ( %USECROSS , 0 ) {
+        PRINT $CAVESTATE0
+    }
+    IFEQUAL ( %USECROSS , 1 ) {
+        PRINT $CAVESTATE1
+    }
+   
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "RED" ) {
+            FILE "red.nal"
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "YELLOW" ) {
+            FILE "yellow.nal"
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "BLUE" ) {
+            FILE "blue.nal"
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "GOLD" ) {
+            FILE "gold.nal"
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "CAVE" ) {
+            FILE "cave.nal"
+        }
+    }
+
+    IFEQUAL ( $VA , "ACTION" ) {
+        IFEQUAL ( $B , "SWORD" ) {
+            PRINT "You get SWORD using key."
+            %SWORD = 1
+        }
+        IFEQUAL ( $B , "SHEID" ) {
+            PRINT "You get SHEID using key."
+            %SHEID = 1
+        }
+        IFEQUAL ( $B , "ARMOR" ) {
+            PRINT "You get ARMOR using key."
+            %ARMOR = 1
+        }
+        IFEQUAL ( $B , "CROSS" ) {
+            PRINT "You get CROSS using key."
+            %CROSS = 1
+        }
+    }
+
+    JUMP 25
+}

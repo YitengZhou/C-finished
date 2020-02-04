@@ -1,0 +1,22 @@
+{
+
+   PRINT 12ab2
+   PRINT %
+   PRINT %Aa12
+   PRINT A
+   PRINT $
+   PRINT $Ab123
+   FILE "test1.nal
+   FILE test1.nal"
+   FILE #test1.nal
+   FILE test1.nal#
+   FILE 12
+   INC  %C )
+   INC ( %C
+   INC ( C )
+   INC ( %Aa )
+   IN2STR ( $A  $B )
+   IN2STR ( A , $B )
+   IN2STR ( $ , $B )
+
+}

@@ -1,0 +1,191 @@
+基础语法：——————————————————————————————————————————————————————————————————————
+
+若比较里面是带空格的字符串？
+
+
+1、若代码缺少开头的"{", 例如将 test1.nal 中开头的 { 删去, 则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " { " ,  occured in nal.c, line 744
+
+2、若代码缺少结尾的"}", 例如将 test1.nal 中末尾的 } 删去, 则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " } " ,  occured in nal.c, line 751
+
+3、若代码的关键字不匹配，例如将 test1.nal 中的“PRINT”改为“PERNT”, 则输出错误提示如下并退出程序:
+   Error code: "PEINT"
+   Fatal Error: Invalid instruction !  occured in nal.c, line 179
+
+4、若代码的关键字为小写字符，例如：test1.nal 将“PRINT”改为“print”, 则输出错误提示如下并退出程序:
+   Error code: "print"
+   Fatal Error: Invalid instruction !  occured in nal.c, line 179
+
+About "PRINT"、"PRINTN": ———————————————————————————————————————————————————————
+parser:
+1、若“PRINT”后的string-constants只有前引号，没有后引号，例如将 test1.nal 中的后引号删去，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ,  occured in nal.c, line 675
+
+   若“PRINT”后的string-constants只有前面的#，没有后面的#，例如将 test2.nal 中字符串结束的#删去，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " # " ,  occured in nal.c, line 692
+
+2、若“PRINT”后的string-constants只有后引号，没有前引号，例如将 test1.nal 中的前引号删去，则输出错误提示如下并退出程序:
+   Error code: "Hello"
+   Fatal Error: Incorrect number constant representation ?  occured in nal.c, line 710
+   由于判断是否为string-constants的标志为开头的”或者#，故此处没有被判断为string-constants，但是能找到错误位置。
+
+   若“PRINT”后的string-constants只有前面的#，没有后面的#，例如将 test2.nal 中字符串开头的#删去，则输出错误提示如下并退出程序:
+   Error code: "Uryyb"
+   Fatal Error: Incorrect number constant representation ?  occured in nal.c, line 710
+   由于判断是否为string-constants的标志为开头的”或者#，故此处没有被判断为string-constants，但是能找到错误位置。
+
+3、若“PRINT”后的数字常量包括字母，例如 test.nal 中第三行，则输出错误提示如下并退出程序:
+   Error code: "12ab2"
+   Fatal Error: Incorrect number constant representation ?  occured in nal.c, line 710
+
+4、若“PRINT”后的number-variables只有%，没有字符，例如 test.nal 中第四行，则输出错误提示如下并退出程序:
+   Fatal Error: Illegal number variable expression,  occured in nal.c, line 647
+
+   或者有符号%，但是字符不全是大写字符，例如 test.nal 中第五行，则输出错误提示如下并退出程序:
+   Fatal Error: Illegal expression, make sure all the letters are capital!  occured in nal.c, line 722
+
+   若“PRINT”后的number-variables没有%，例如 test.nal 中第六行，则无法判断其为number-variables，输出错误提示如下:
+   Error code: "A"
+   Fatal Error: Incorrect number constant representation ?  occured in nal.c, line 710
+
+5、若“PRINT”后的string-variables只有$，没有字符，例如 test.nal 中第七行，
+   Fatal Error: Illegal string variable expression,  occured in nal.c, line 632
+
+   或者有符号$，但是字符不全是大写字符，例如 test.nal 中第8行，则输出错误提示如下并退出程序:
+   Fatal Error: Illegal expression, make sure all the letters are capital!  occured in nal.c, line 722
+
+interpter:
+1、解决问题：若$A = "HELLO WORLD"， $B = $A， PRINT $B —— 此时打印为$A，实际应该打印的
+   结果应该是HELLO WORLD，故增加了search函数，直到找到变量对应的常量再返回结果，修改后打印正确。
+
+2、解决问题：最开始PRINT函数判断string-constants是否以后引号或#结束时，利用出现关键字或者特殊符号来实现，运行
+   已经提供的例子没有问题，但是一旦想打印关键字或者特殊符号，则出现了问题。后来修改了readIn函数，
+   将有效行末尾的换行符保存下来，用换行符判断string-constants的结束是否合法。
+
+3、if we print an undefined variable, 例如直接打印 PRINT %A，则输出错误提示如下并退出程序:
+   The variable "%A" haven't been set. Please set it before using it!
+
+About ”SET”: —————————————————————————————————————————————————————————————————
+parser:
+1、若将等号删去，例如将test2.nal中的第一个等号删去，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " = " ,  occured in nal.c, line 765
+
+2、将=右边的string-constants的后引号删去，例如将test2.nal中第三行的后引号删去，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ,  occured in nal.c, line 675
+
+3、若=左边为string-variables，右边为数字，例如将test2.nal中第三行的”NEILL“改为12.3，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " or # ,  occured in nal.c, line 67
+   右边不是string-variables，且不是正确的string-constants时，提示如下：
+   Fatal Error: Expected a " ,  occured in nal.c, line 690
+   or
+   Fatal Error: Expected a " # " ,  occured in nal.c, line 707
+
+4、若=左边为数变量，右边为string-constants，例如将test2.nal中中第4行的12.4改为”NEILL“，则输出错误提示如下并退出程序:
+   Error code: ""Neill"
+   Fatal Error: Incorrect number constant representation ?  occured in nal.c, line 727
+
+interper:
+1、当同一变量重复赋值时，每次查找都是第一次赋值的数据，开始以为是插入失败，后来经过查找，发现
+   均插入成功，但是每次读取都会读取第一次的数据，故增加insert函数，若变量已经存在，将其删去，
+   插入新值。
+
+About "IFEQUAL","IFGREATER": ———————————————————————————————————————————————————
+parser:
+1、删去test2.nal中 ( ，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ( " ,  occured in nal.c, line 745
+
+2、删去test2.nal中逗号，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " , " ,  occured in nal.c, line 773
+
+3、删去test2.nal中 ) ，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ) " ,  occured in nal.c, line 745
+
+4、删去test2.nal中IFEQUAL后的 { ，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " { " ,  occured in nal.c, line 759
+
+5、删去test2.nal中IFEQUAL后的 } ，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " } " ,  occured in nal.c, line 754
+
+6、删去test2.nal中Arvyy后的#，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " # " ,  occured in nal.c, line 707
+
+interper:
+1、条件判断中括号的匹配非常重要，开始我使用栈进行{和}的出入栈，但后来发现当遇到括号嵌套时不好计算括号数量，
+   后改为队列，遇到{入队，遇到}出队，由于队列可计算留在队中剩余{的个数，可满足条件嵌套的判断。
+   另外，实际运行中，在使用队列时，当执行到任意的三层嵌套时会自动返回调用该子函数的主函数，后来
+   发现是if中判断}后忘了+1，导致下一条语句由}开始，子程序被误认为执行完毕。
+
+2、IFGREATER判断大小时，起初是直接相减，后来改为先判断长度再相减，均有问题。最后改为将字符串转换
+   为数字后再相减。
+
+About "JUMP": ———————————————————————————————————————————————————
+1、当JUMP后跟的不是数字时，例如将test3.nal的JUMP后的1改为A，输出错误提示如下:
+   Error code: "A"
+   Fatal Error: Incorrect number constant representation ?  occured in nal.c, line 713
+
+2、当JUMP后跟的数字超过总的code数量时，例如例如将test3.nal的JUMP后的1改为20，输出错误提示如下:
+   Fatal Error: Jump number exceed the actual number of code.
+   occured in nal.c, line 291
+
+About "FILE": ———————————————————————————————————————————————————
+
+1、FILE后的string-constants缺少后引号，例如 test.nal 中第9行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ,  occured in nal.c, line 683
+
+2、FILE后的string-constants缺少前引号，例如 test.nal 中第10行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " or # ,  occured in nal.c, line 664
+
+3、FILE后的string-constants缺少后#，例如 test.nal 中第11行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " # " ,  occured in nal.c, line 700
+
+4、FILE后的string-constants缺少后#，例如 test.nal 中第12行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " or # ,  occured in nal.c, line 664
+
+5、FILE后跟随数常量，例如 test.nal 中第13行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " or # ,  occured in nal.c, line 664
+
+6、修改错误：读入FILE后string-constants对应的文件失败，通过将文件名输出发现是未将文件名两侧的符号
+   （引号或者#号）删去，导致无法打开文件。
+
+About "INC": ———————————————————————————————————————————————————
+
+1、INC后面缺少 ( ，例如 test.nal 中第14行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ( " ,  occured in nal.c, line 738
+
+2、INC后面缺少 ） ，例如 test.nal 中第15行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " ) " ,  occured in nal.c, line 745
+
+3、INC括号内缺少 % ，例如 test.nal 中第16行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " % " ,  occured in nal.c, line 651
+
+4、INC的%后不是全为大写字母 ，例如 test.nal 中第17行，则输出错误提示如下并退出程序:
+   Fatal Error: Illegal expression, make sure all the letters are capital!  occured in nal.c, line 730
+
+5、the number-variable in brackets 没有set，例如 INC ( %B )，则输出错误提示如下并退出程序:
+   The variable "%B" haven't been set. Please set it before using it!
+
+6、将search 改为 mvm_search
+
+About "RND": ———————————————————————————————————————————————————
+
+1、RND在parse中的语法规则和INC相同，出现语法错误时错误提示也和INC相同，详情见INC部分.
+
+2、interp时，开始将随机数种子放在子函数内部，故每次产生的随机数都一样
+   (random number can't be diffrent on successive executions)，
+   后将随机数种子移到主函数中，解决了此问题。
+
+About "INNUM"、"IN2STR": ———————————————————————————————————————————————————
+
+1、INNUM在parse中的语法规则和INC相同，出现语法错误时错误提示也和INC相同，详情见INC部分.
+
+2、INNUM开始当输入不是数字时，不会报错，后来增加对输入字符的判断，若不是数字，则提示重新输入。
+
+2、IN2STR在缺少括号、$后不是全为大写字母时，与INC相同，当缺少逗号时,例如 test.nal 中第18行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " , " ,  occured in nal.c, line 766
+
+3、INSTR括号内缺少 $ ，例如 test.nal 中第19行，则输出错误提示如下并退出程序:
+   Fatal Error: Expected a " $ " ,  occured in nal.c, line 636
+
+4、INSTR括号内的$后无字母时 ，例如 test.nal 中第20行，则输出错误提示如下并退出程序:
+   Fatal Error: Illegal string variable expression,  occured in nal.c, line 640

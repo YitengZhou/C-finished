@@ -1,0 +1,16 @@
+{
+    $LOVE = "WORLD"
+    %ABC = 12.11
+
+    PRINT "HELLO"
+    PRINT #URYYB#
+    PRINT 14.3
+    PRINT $LOVE
+    PRINT %ABC
+    PRINTN "HELLO"
+    PRINTN #URYYB#
+    PRINTN 14.3
+    PRINTN $LOVE
+    PRINTN %ABC
+    PRINT ""
+}

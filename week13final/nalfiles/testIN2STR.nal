@@ -1,0 +1,30 @@
+{
+    IN2STR ( $AAAAAA , $CS )
+    PRINT $AAAAAA
+    PRINT $CS
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+
+    IN2STR ( "LOVE" , "COMPUTER" )
+    IN2STR ( "LOVE" , 12.11 )
+    IN2STR ( "LOVE" , $COMPUTER )
+    IN2STR ( "LOVE" , %ABC )
+
+    IN2STR ( 12.11 , "LOVE" )
+    IN2STR ( 12.11 , 24.5 )
+    IN2STR ( 12.11 , $COMPUTER )
+    IN2STR ( 12.11 , %ABC )
+
+    IN2STR ( $AAAAAA , "LOVE" )
+    IN2STR ( $AAAAAA , 12.11 )
+    IN2STR ( $AAAAAA , %ABC )
+
+    IN2STR ( %ABC , "LOVE" )
+    IN2STR ( %ABC , 12.11 )
+    IN2STR ( %ABC , $COMPUTER )
+    IN2STR ( %ABC , %LOVE )
+
+    IN2STR $AAAAAA , $ADS )
+    IN2STR ( $AAAAAA $ADS )
+    IN2STR ( $AAAAAA , $ADS 

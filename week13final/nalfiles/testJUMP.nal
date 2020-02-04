@@ -1,0 +1,9 @@
+{
+    JUMP 3
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+    JUMP "LOVE"
+    JUMP #LOVE#
+    JUMP $ABC
+    JUMP %DEF

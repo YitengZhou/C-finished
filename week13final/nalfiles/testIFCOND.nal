@@ -1,0 +1,247 @@
+{
+    $A = "HELLO"
+    %A = 12.11
+    $STRVAR = "HELLO"
+    %NUMVAR = 12.11
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT $STRVAR
+    IFEQUAL ( $A , $STRVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT $STRVAR
+    IFEQUAL ( %A , $STRVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN "HELLO"
+    PRINTN "-"
+    PRINT $STRVAR
+    IFEQUAL ( "HELLO" , $STRVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN 12.11
+    PRINTN "-"
+    PRINT $STRVAR
+    IFEQUAL ( 12.11 , $STRVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFEQUAL ( $A , %NUMVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFEQUAL ( %A , %NUMVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN "HELLO"
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFEQUAL ( "HELLO" , %NUMVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN 12.11
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFEQUAL ( 12.11 , %NUMVAR ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT #URYYB#
+    IFEQUAL ( $A , #URYYB# ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT #URYYB#
+    IFEQUAL ( %A , #URYYB# ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN "HELLO"
+    PRINTN "-"
+    PRINT #URYYB#
+    IFEQUAL ( "HELLO" , #URYYB# ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN 12.11
+    PRINTN "-"
+    PRINT #URYYB#
+    IFEQUAL ( 12.11 , #URYYB# ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT 12.11
+    IFEQUAL ( $A , 12.11 ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT 12.11
+    IFEQUAL ( %A , 12.11 ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN "HELLO"
+    PRINTN "-"
+    PRINT 12.11
+    IFEQUAL ( "HELLO" , 12.11 ) {
+        PRINT "EQUAL"
+    }
+
+    PRINTN 12.11
+    PRINTN "-"
+    PRINT 12.11
+    IFEQUAL ( 12.11 , 12.11 ) {
+        PRINT "EQUAL"
+    }
+
+    $A = "ZOO"
+    %A = 100
+    $STRVAR = "HELLO"
+    %NUMVAR = 12.11
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT $STRVAR
+    IFGREATER ( $A , $STRVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT $STRVAR
+    IFGREATER ( %A , $STRVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN "WORLD"
+    PRINTN "-"
+    PRINT $STRVAR
+    IFGREATER ( "WORLD" , $STRVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN 200
+    PRINTN "-"
+    PRINT $STRVAR
+    IFGREATER ( 200 , $STRVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFGREATER ( $A , %NUMVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFGREATER ( %A , %NUMVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN "HELLO"
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFGREATER ( "HELLO" , %NUMVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN 100
+    PRINTN "-"
+    PRINT %NUMVAR
+    IFGREATER ( 100 , %NUMVAR ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT #URYYB#
+    IFGREATER ( $A , #URYYB# ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT #URYYB#
+    IFGREATER ( %A , #URYYB# ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN "WORLD"
+    PRINTN "-"
+    PRINT #URYYB#
+    IFGREATER ( "WORLD" , #URYYB# ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN 12.11
+    PRINTN "-"
+    PRINT #URYYB#
+    IFGREATER ( 12.11 , #URYYB# ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN $A
+    PRINTN "-"
+    PRINT 12.11
+    IFGREATER ( $A , 12.11 ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN %A
+    PRINTN "-"
+    PRINT 12.11
+    IFGREATER ( %A , 12.11 ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN "HELLO"
+    PRINTN "-"
+    PRINT 12.11
+    IFGREATER ( "HELLO" , 12.11 ) {
+        PRINT "GREATER"
+    }
+
+    PRINTN 100
+    PRINTN "-"
+    PRINT 12.11
+    IFGREATER ( 100 , 12.11 ) {
+        PRINT "GREATER"
+    }
+
+}
+
+If any wrong language below copy into braces, the terminal will show bugs clearly.
+        IFEQUAL $A , $STRVAR ) { }
+        IFEQUAL ( $A $STRVAR ) { }
+        IFEQUAL ( $A , $STRVAR { }
+        IFEQUAL ( $A , $STRVAR ) }
+
+        IFGREATER $A , $STRVAR ) { }
+        IFGREATER ( $A $STRVAR ) { }
+        IFGREATER ( $A , $STRVAR { }
+        IFGREATER ( $A , $STRVAR ) }

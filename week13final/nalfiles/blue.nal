@@ -1,0 +1,43 @@
+{
+    PRINT ""
+    IFEQUAL ( %SHEID , 0 ) {
+        PRINT $BLUE
+    }
+
+    IFEQUAL ( %SHEID , 1 ) {
+        PRINT $BLUEMPTY
+    }
+
+    IN2STR ( $A , $B )
+    FILE "rule.nal"
+
+    IFEQUAL ( $VA , "LOOK" ) {
+        IFEQUAL ( $VB , "PICTURE" ) {
+            INC ( %LOOKPICTURE )
+            IFEQUAL ( %LOOKPICTURE , 1 ) {
+                PRINT ""
+                PRINT $PICTURE1
+            }
+            IFEQUAL ( %LOOKPICTURE , 2 ) {
+                PRINT ""
+                PRINT $PICTURE1
+            }
+            IFEQUAL ( %LOOKPICTURE , 3 ) {
+                PRINT ""
+                PRINT $PICTURE2
+                PRINT $FINISHBLUE
+                %SHEID = 1
+            }
+        }
+    }
+
+    IFEQUAL ( $VA , "MOVE" ) {
+        IFEQUAL ( $B , "SPACE" ) {
+            FILE "space.nal"
+        }
+        PRINT $CANTGO
+        JUMP 23
+    }
+
+    JUMP 23
+}

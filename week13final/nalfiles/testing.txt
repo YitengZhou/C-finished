@@ -1,0 +1,217 @@
+To test all grammar parse and interpret OK,
+I write the following files to ensure every line of code working correctly.
+(testFILE.nal, testIN2STR.nal, testINNUM.nal, testJUMP.nal, testPRINT.nal
+testRND.nal, testIFCOND.nal, testINC.nal, testSET.nal)
+Besides, If there are still issues/bugs, the terminal will show them clearly.
+
+Discuss: I successfully found several bugs using those examples in this strategy. 
+Also, I could quickly found which line or grammar is wrong because there are effective
+tips in the terminal. 
+For example, -Fatal Error Expecting (what problem) in (what grammar) grammar in (which line)
+I believe this strategy also has the advantage that every function is tested separately in
+different files for more flexible modules.
+
+# make -f nal.mk testnal will creat (testnal) and then could test different grammar #
+# for example, ./testnal test1.nal will show the process of different test files #
+
+"testFILE.nal"
+test "FILE" <STRCON> OK
+    e.g. FILE "test1.nal" - "FILE" <STRCON> with double quotes
+         FILE #grfg6.any# - "FILE" <STRCON> with hashes ROT18
+test "FILE" <NUMCON> / "FILE" <STRVAR> / "FILE" <NUMVAR> / "FILE" <symbols> will show wrong grammar:
+    -Fatal Error Expecting a STRCON in FILE grammar ? occured in nal.c, line 232
+    e.g. FILE $A - "FILE" <NUMCON>
+         FILE %B - "FILE" <STRVAR>
+         FILE 10 - "FILE" <NUMVAR>
+         FILE @! - "FILE" <symbols>
+         FILE }  - "FILE" <symbols>
+
+"testIN2STR.nal"
+test "IN2STR" ( <STRVAR> , <STRVAR> ) OK
+    e.g. IN2STR ( $AAAAAA , $ADS )
+test "IN2STR" ( <STRCON> , <STRCON> ), "IN2STR" ( <STRCON> , <NUMCON> ),
+     "IN2STR" ( <STRCON> , <STRVAR> ), "IN2STR" ( <STRCON> , <NUMVAR> ),
+     "IN2STR" ( <NUMCON> , <STRCON> ), "IN2STR" ( <NUMCON> , <NUMCON> ),
+     "IN2STR" ( <NUMCON> , <STRVAR> ), "IN2STR" ( <NUMCON> , <NUMVAR> ),
+     "IN2STR" ( <STRVAR> , <STRCON> ), "IN2STR" ( <STRVAR> , <NUMCON> ),
+     "IN2STR" ( <STRVAR> , <NUMVAR> ), "IN2STR" ( <NUMVAR> , <STRCON> ),
+     "IN2STR" ( <NUMVAR> , <NUMCON> ), "IN2STR" ( <NUMVAR> , <STRVAR> ),
+     "IN2STR" ( <NUMVAR> , <NUMVAR> ) will show wrong grammar 1:
+    -Fatal Error Expected a STRVAR in IN2STR grammar ? occured in nal.c, line 592
+    e.g. IN2STR ( "LOVE" , "COMPUTER" ) - "IN2STR" ( <STRCON> , <STRCON> )
+         IN2STR ( "LOVE" , 12.11 )      - "IN2STR" ( <STRCON> , <NUMCON> )
+         IN2STR ( "LOVE" , $COMPUTER )  - "IN2STR" ( <STRCON> , <STRVAR> )
+         IN2STR ( "LOVE" , %ABC )       - "IN2STR" ( <STRCON> , <NUMVAR> )
+         IN2STR ( 12.11 , "LOVE" )      - "IN2STR" ( <NUMCON> , <STRCON> )
+         IN2STR ( 12.11 , 24.5 )        - "IN2STR" ( <NUMCON> , <NUMCON> )
+         IN2STR ( 12.11 , $COMPUTER )   - "IN2STR" ( <NUMCON> , <STRVAR> )
+         IN2STR ( 12.11 , %ABC )        - "IN2STR" ( <NUMCON> , <NUMVAR> )
+         IN2STR ( $AAAAAA , "LOVE" )    - "IN2STR" ( <STRVAR> , <STRCON> )
+         IN2STR ( $AAAAAA , 12.11 )     - "IN2STR" ( <STRVAR> , <NUMCON> )
+         IN2STR ( $AAAAAA , %ABC )      - "IN2STR" ( <STRVAR> , <NUMVAR> )
+         IN2STR ( %ABC , "LOVE" )       - "IN2STR" ( <NUMVAR> , <STRCON> )
+         IN2STR ( %ABC , 12.11 )        - "IN2STR" ( <NUMVAR> , <NUMCON> )
+         IN2STR ( %ABC , $COMPUTER )    - "IN2STR" ( <NUMVAR> , <STRVAR> )
+         IN2STR ( %ABC , %LOVE )        - "IN2STR" ( <NUMVAR> , <NUMVAR> )
+test "IN2STR" <STRCON> , <STRCON> ), "IN2STR" ( <STRCON> <STRCON> ),
+     "IN2STR" ( <STRCON> , <STRCON> with miss "(" or "," or ")" will show wrong grammar 2:
+    -Fatal Error Expecting a ( , ) in IN2STR grammar ? occured in nal.c, line 595
+    e.g. IN2STR $AAAAAA , $ADS ) - miss "("
+         IN2STR ( $AAAAAA $ADS ) - miss ","
+         IN2STR ( $AAAAAA , $ADS - miss ")"
+
+"testINNUM.nal"
+test "INNUM" ( <NUMVAR> ) OK
+    e.g. INNUM ( %COMPUTER )
+test "INNUM" ( <STRCON> ), "INNUM" ( <NUMCON> ), "INNUM" ( <STRVAR> ) will show wrong grammar 1:
+    -Fatal Error Expected a NUMVAR in INNUM grammar ? occured in nal.c, line 613
+    e.g. INNUM ( "LOVE" )    - INNUM ( <STRCON> )
+         INNUM ( #LOVE# )    - INNUM ( <STRCON> )
+         INNUM ( 12.11 )     - INNUM ( <NUMCON> )
+         INNUM ( $COMPUTER ) - INNUM ( <STRVAR> )
+test "INNUM" <NUMVAR> ), "INNUM" ( <NUMVAR> with miss "(" or ")" will show wrong grammar 2:
+    -Fatal Error Expecting a braces ( NUMVAR ) in INNUM grammar? occured in nal.c, line 617
+    e.g. INNUM %COMPUTER ) - miss "("
+         INNUM ( %COMPUTER - miss ")"
+
+"testJUMP.nal"
+test JUMP <NUMCON> OK
+    e.g. JUMP 3
+test JUMP <STRCON>, JUMP <STRVAR>, JUMP <NUMVAR> will show wrong grammar 1:
+    -Fatal Error Expecting a NUMCON in JUMP grammar? occured in nal.c, line 285
+    e.g. JUMP "LOVE" - JUMP <STRCON>
+         JUMP #LOVE# - JUMP <STRCON>
+         JUMP $ABC   - JUMP <STRVAR>
+         JUMP %DEF   - JUMP <NUMVAR>
+
+"testPRINT.nal"
+test "PRINT" <VARCON>, "PRINTN" <VARCON> OK
+    e.g. PRINT "HELLO"  - PRINT <STRCON>
+         PRINT #URYYB#  - PRINT <STRCON>
+         PRINT 14.3     - PRINT <NUMCON>
+         PRINT $LOVE    - PRINT <STRVAR>
+         PRINT %ABC     - PRINT <NUMVAR>
+         PRINTN "HELLO" - PRINTN <STRCON>
+         PRINTN #URYYB# - PRINTN <STRCON>
+         PRINTN 14.3    - PRINTN <NUMCON>
+         PRINTN $LOVE   - PRINTN <STRVAR>
+         PRINTN %ABC    - PRINTN <NUMVAR>
+
+"testRND"
+test "RND" ( <NUMVAR> ) OK
+    e.g. RND ( %N )
+test "RND" ( <STRCON> ), "RND" ( <NUMCON> ), "RND" ( <STRVAR> ) will show wrong grammar 1:
+    -Fatal Error Expected a NUMVAR in RND grammar ? occured in nal.c, line 329
+    e.g. RND ( "LOVE" )    - RND ( <STRCON> )
+         RND ( #LOVE# )    - RND ( <STRCON> )
+         RND ( 12.11 )     - RND ( <NUMCON> )
+         RND ( $COMPUTER ) - RND ( <STRVAR> )
+test "RND" <NUMVAR> ), "RND" ( <NUMVAR> with miss "(" or ")" will show wrong grammar 2:
+    -Fatal Error Expecting a pair of braces ( NUMVAR ) in RND grammar ? occured in nal.c, line 333
+    e.g. RND %COMPUTER ) - miss "("
+         RND ( %COMPUTER - miss ")"
+
+"testIFCOND"
+test "IFEQUAL" ( <VARCON> , <VARCON> ) {, "IFGREATER" ( <VARCON> , <VARCON> ) { OK
+    e.g. IFEQUAL ( $A , $STRVAR )      - "IFEQUAL" ( <STRVAR> , <STRVAR> ) {
+         IFEQUAL ( %A , $STRVAR )      - "IFEQUAL" ( <NUMVAR> , <STRVAR> ) {
+         IFEQUAL ( "HELLO" , $STRVAR ) - "IFEQUAL" ( <STRCON> , <STRVAR> ) {
+         IFEQUAL ( 12.11 , $STRVAR )   - "IFEQUAL" ( <NUMCON> , <STRVAR> ) {
+         IFEQUAL ( $A , %NUMVAR )      - "IFEQUAL" ( <STRVAR> , <NUMVAR> ) {
+         IFEQUAL ( %A , %NUMVAR )      - "IFEQUAL" ( <NUMVAR> , <NUMVAR> ) {
+         IFEQUAL ( "HELLO" , %NUMVAR ) - "IFEQUAL" ( <STRCON> , <NUMVAR> ) {
+         IFEQUAL ( 12.11 , %NUMVAR )   - "IFEQUAL" ( <NUMCON> , <NUMVAR> ) {
+         IFEQUAL ( $A , #URYYB# )      - "IFEQUAL" ( <STRVAR> , <STRCON> ) {
+         IFEQUAL ( %A , #URYYB# )      - "IFEQUAL" ( <NUMVAR> , <STRCON> ) {
+         IFEQUAL ( "HELLO" , #URYYB# ) - "IFEQUAL" ( <STRCON> , <STRCON> ) {
+         IFEQUAL ( 12,11 , #URYYB# )   - "IFEQUAL" ( <NUMCON> , <STRCON> ) {
+         IFEQUAL ( $A , 12.11 )        - "IFEQUAL" ( <STRVAR> , <NUMCON> ) {
+         IFEQUAL ( %A , 12.11 )        - "IFEQUAL" ( <NUMVAR> , <NUMCON> ) {
+         IFEQUAL ( "HELLO" , 12.11 )   - "IFEQUAL" ( <STRCON> , <NUMCON> ) {
+         IFEQUAL ( 12.11 , 12.11 )     - "IFEQUAL" ( <NUMCON> , <NUMCON> ) {
+test "IFEQUAL" ( <VARCON> , <VARCON> ) with miss "(" or ")" or "," or "{" will show wrong grammar 1:
+    -Fatal Error Expecting a series of symbols ( , ) { in IFEQUAL grammar? occured in nal.c, line 368
+    e.g. IFEQUAL $A , $STRVAR ) { - miss "("
+         IFEQUAL ( $A $STRVAR ) { - miss ","
+         IFEQUAL ( $A , $STRVAR { - miss ")"
+         IFEQUAL ( $A , $STRVAR ) - miss "{"
+
+test "IFGREATER" ( <VARCON> , <VARCON> ) {, "IFGREATER" ( <VARCON> , <VARCON> ) { OK
+    e.g. IFGREATER ( $A , $STRVAR )      - "IFGREATER" ( <STRVAR> , <STRVAR> ) {
+         IFGREATER ( %A , $STRVAR )      - "IFGREATER" ( <NUMVAR> , <STRVAR> ) {
+         IFGREATER ( "HELLO" , $STRVAR ) - "IFGREATER" ( <STRCON> , <STRVAR> ) {
+         IFGREATER ( 12.11 , $STRVAR )   - "IFGREATER" ( <NUMCON> , <STRVAR> ) {
+         IFGREATER ( $A , %NUMVAR )      - "IFGREATER" ( <STRVAR> , <NUMVAR> ) {
+         IFGREATER ( %A , %NUMVAR )      - "IFGREATER" ( <NUMVAR> , <NUMVAR> ) {
+         IFGREATER ( "HELLO" , %NUMVAR ) - "IFGREATER" ( <STRCON> , <NUMVAR> ) {
+         IFGREATER ( 12.11 , %NUMVAR )   - "IFGREATER" ( <NUMCON> , <NUMVAR> ) {
+         IFGREATER ( $A , #URYYB# )      - "IFGREATER" ( <STRVAR> , <STRCON> ) {
+         IFGREATER ( %A , #URYYB# )      - "IFGREATER" ( <NUMVAR> , <STRCON> ) {
+         IFGREATER ( "HELLO" , #URYYB# ) - "IFGREATER" ( <STRCON> , <STRCON> ) {
+         IFGREATER ( 12,11 , #URYYB# )   - "IFGREATER" ( <NUMCON> , <STRCON> ) {
+         IFGREATER ( $A , 12.11 )        - "IFGREATER" ( <STRVAR> , <NUMCON> ) {
+         IFGREATER ( %A , 12.11 )        - "IFGREATER" ( <NUMVAR> , <NUMCON> ) {
+         IFGREATER ( "HELLO" , 12.11 )   - "IFGREATER" ( <STRCON> , <NUMCON> ) {
+         IFGREATER ( 12.11 , 12.11 )     - "IFGREATER" ( <NUMCON> , <NUMCON> ) {
+test "IFGREATER" ( <VARCON> , <VARCON> ) with miss "(" or ")" or "," or "{" will show wrong grammar 1:
+    -Fatal Error Expecting a series of symbols ( , ) { in IFGREATER grammar? occured in nal.c, line 387
+    e.g. IFGREATER $A , $STRVAR ) { - miss "("
+         IFGREATER ( $A $STRVAR ) { - miss ","
+         IFGREATER ( $A , $STRVAR { - miss ")"
+         IFGREATER ( $A , $STRVAR ) - miss "{"
+
+
+"testINC"
+test "INC" ( <NUMVAR> ) OK
+    e.g. INC ( %N )
+test "INC" ( <STRCON> ), "INC" ( <NUMCON> ), "INC" ( <STRVAR> ) will show wrong grammar 1:
+    -Fatal Error Expected a NUMVAR in INC grammar ? occured in nal.c, line 409
+    e.g. INC ( "LOVE" )    - INC ( <STRCON> )
+         INC ( #LOVE# )    - INC ( <STRCON> )
+         INC ( 12.11 )     - INC ( <NUMCON> )
+         INC ( $COMPUTER ) - INC ( <STRVAR> )
+test "INC" <NUMVAR> ), "INC" ( <NUMVAR> with miss "(" or ")" will show wrong grammar 2:
+    -Fatal Error Expecting a pair of braces ( NUMVAR ) in INC grammar ? occured in nal.c, line 413
+    e.g. INC %COMPUTER ) - miss "("
+         INC ( %COMPUTER - miss ")"
+
+"testSET"
+test <VAR> "=" <VARCON> OK
+    e.g. $HELLO = $STRVAR - STRVAR <STRVAR>
+         $HELLO = %NUMVAR - STRVAR <STRNUM>
+         $HELLO = "LOVE"  - STRVAR <STRCON>
+         $HELLO = #LOVE#  - STRVAR <STRCON> with #
+         $HELLO = 12.11   - STRVAR <NUMCON>
+         %WORLD = $STRVAR - NUMVAZ <STRVAR>
+         %WORLD = %NUMVAR - NUMVAR <STRNUM>
+         %WORLD = "LOVE"  - NUMVAR <STRCON>
+         %WORLD = #LOVE#  - NUMVAR <STRCON> with #
+         %WORLD = 12.11   - NUMVAR <NUMCON>
+test <CON> "=" <VARCON> will show wrong grammar 1:
+    -Fatal Error Expected a STRVAR/NUMVAR in SET grammar ? occured in nal.c, line 430
+    e.g. "LOVE" = $STRVAR - STRCON <STRVAR>
+         "LOVE" = %NUMVAR - STRCON <STRNUM>
+         "LOVE" = "LOVE"  - STRCON <STRCON>
+         "LOVE" = #LOVE#  - STRCON <STRCON> with #
+         "LOVE" = 12.11   - STRCON <NUMCON>
+         12.11 = $STRVAR - NUMCON <STRVAR>
+         12.11 = %NUMVAR - NUMCON <STRNUM>
+         12.11 = "LOVE"  - NUMCON <STRCON>
+         12.11 = #LOVE#  - NUMCON <STRCON> with #
+         12.11 = 12.11   - NUMCON <NUMCON>
+test <VAR> <VARCON> with miss "=" will show wrong grammar 2:
+    -Fatal Error Expected a = in SET grammar ? occured in nal.c, line 434
+    e.g. $HELLO $STRVAR - miss "="
+
+# If testing OK, the terminal will show the following:
+Basic Grammar Tests File ... Start
+Tests File <testFILE.nal> OK
+Tests File <testIN2STR.nal> OK
+Tests File <testINNUM.nal> OK
+Tests File <testJUMP.nal> OK
+Tests File <testPRINT.nal> OK
+Tests File <testRND.nal> OK
+Tests File <testIFCOND.nal> OK
+Tests File <testINC.nal> OK
+Tests File <testSET.nal> OK
+Basic Grammar Tests File ... Stop #
